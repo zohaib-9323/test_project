@@ -25,24 +25,23 @@ from app.models.job import (
     JobListResponse,
     JobSearchRequest,
     JobWithCompany,
-    UserRole,
 )
-from app.models.user import User
-from app.services.job_service import job_service
+from app.models.user import UserInDB, UserRole
+# from app.services.job_service import job_service
 
 router = APIRouter(prefix="/jobs", tags=["jobs"])
 
 
 @router.post("/companies/", response_model=Company, status_code=status.HTTP_201_CREATED)
 async def create_company(
-    company_data: CompanyCreate, current_user: User = Depends(get_current_verified_user)
+    company_data: CompanyCreate, current_user: UserInDB = Depends(get_current_verified_user)
 ):
     """
     Create a new company
 
     Only users with 'company' or 'admin' role can create companies.
     """
-    if current_user.role not in [UserRole.COMPANY, UserRole.ADMIN]:
+    if current_user.role not in [UserInDBRole.COMPANY, UserInDBRole.ADMIN]:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Only company users and admins can create companies",
@@ -55,7 +54,7 @@ async def create_company(
 async def get_companies(
     page: int = Query(1, ge=1, description="Page number"),
     per_page: int = Query(20, ge=1, le=100, description="Items per page"),
-    current_user: User = Depends(get_current_verified_user),
+    current_user: UserInDB = Depends(get_current_verified_user),
 ):
     """
     Get list of companies with pagination
@@ -67,7 +66,7 @@ async def get_companies(
 
 @router.get("/companies/{company_id}", response_model=Company)
 async def get_company(
-    company_id: int, current_user: User = Depends(get_current_verified_user)
+    company_id: int, current_user: UserInDB = Depends(get_current_verified_user)
 ):
     """
     Get a specific company by ID
@@ -84,14 +83,14 @@ async def get_company(
 
 @router.post("/", response_model=Job, status_code=status.HTTP_201_CREATED)
 async def create_job(
-    job_data: JobCreate, current_user: User = Depends(get_current_verified_user)
+    job_data: JobCreate, current_user: UserInDB = Depends(get_current_verified_user)
 ):
     """
     Create a new job posting
 
     Only users with 'company' or 'admin' role can create jobs.
     """
-    if current_user.role not in [UserRole.COMPANY, UserRole.ADMIN]:
+    if current_user.role not in [UserInDBRole.COMPANY, UserInDBRole.ADMIN]:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Only company users and admins can create jobs",
@@ -113,7 +112,7 @@ async def get_jobs(
     company_id: Optional[int] = Query(None, description="Company filter"),
     page: int = Query(1, ge=1, description="Page number"),
     per_page: int = Query(20, ge=1, le=100, description="Items per page"),
-    current_user: User = Depends(get_current_verified_user),
+    current_user: UserInDB = Depends(get_current_verified_user),
 ):
     """
     Get list of jobs with search and filtering
@@ -136,7 +135,7 @@ async def get_jobs(
 
 
 @router.get("/{job_id}", response_model=JobWithCompany)
-async def get_job(job_id: int, current_user: User = Depends(get_current_verified_user)):
+async def get_job(job_id: int, current_user: UserInDB = Depends(get_current_verified_user)):
     """
     Get a specific job by ID with company information
 
@@ -158,7 +157,7 @@ async def get_job(job_id: int, current_user: User = Depends(get_current_verified
 async def apply_to_job(
     job_id: int,
     application_data: JobApplicationCreate,
-    current_user: User = Depends(get_current_verified_user),
+    current_user: UserInDB = Depends(get_current_verified_user),
 ):
     """
     Apply to a job
