@@ -15,10 +15,7 @@ from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, status
 
-from app.middleware.auth import (
-    get_current_active_user,
-    get_current_admin_user,
-)
+from app.middleware.auth import get_current_active_user, get_current_admin_user
 from app.models.user import UserInDB, UserResponse, UserUpdate
 from app.services.user_service import user_service
 
