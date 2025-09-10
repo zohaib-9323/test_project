@@ -14,7 +14,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config.settings import settings
-from app.routes import auth, email_verification, files, users, jobs
+from app.routes import auth, email_verification, files, jobs, users
 
 # Create FastAPI application instance
 app = FastAPI(

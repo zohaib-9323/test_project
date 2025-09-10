@@ -11,7 +11,7 @@ The routes are protected with proper error handling and validation.
 
 from datetime import timedelta
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, HTTPException, status
 
 from app.config.settings import settings
 from app.models.user import Token, UserCreate, UserLogin, UserResponse

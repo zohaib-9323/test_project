@@ -12,7 +12,7 @@ All endpoints require authentication and use Google Cloud Storage for file stora
 """
 
 import logging
-from typing import List, Optional
+from typing import Optional
 
 from fastapi import (
     APIRouter,
@@ -30,8 +30,6 @@ from app.models.file import (
     FileDeleteResponse,
     FileInfo,
     FileListResponse,
-    FileSearchRequest,
-    FileUpdateRequest,
     FileUploadResponse,
 )
 from app.models.user import UserResponse

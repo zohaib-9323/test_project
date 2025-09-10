@@ -13,7 +13,7 @@ import mimetypes
 import os
 import uuid
 from datetime import datetime, timedelta
-from typing import BinaryIO, Optional, Tuple
+from typing import Optional
 
 import magic  # For better MIME type detection
 from fastapi import HTTPException, status
@@ -57,7 +57,7 @@ class StorageService:
             mime_type = magic.from_buffer(file_content, mime=True)
             if mime_type and mime_type != "application/octet-stream":
                 return mime_type
-        except:
+        except Exception:
             pass
 
         # Fallback to mimetypes module
@@ -223,7 +223,7 @@ class StorageService:
             # For images, you might want to generate thumbnails
             # This is a placeholder - you'd implement actual thumbnail generation
             return None
-        except:
+        except Exception:
             return None
 
     async def delete_file(self, gcs_path: str) -> bool:

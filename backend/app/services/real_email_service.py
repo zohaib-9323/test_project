@@ -10,9 +10,6 @@ import smtplib
 import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from typing import Optional
-
-from fastapi import HTTPException, status
 
 
 class RealEmailService:
@@ -124,13 +121,13 @@ class RealEmailService:
                         <div class="logo">🔐 User Management System</div>
                         <h1>Email Verification</h1>
                     </div>
-                    
+
                     <p>Hello,</p>
-                    
+
                     <p>You have requested to verify your email address. Please use the following verification code:</p>
-                    
+
                     <div class="otp-code">{otp_code}</div>
-                    
+
                     <div class="warning">
                         <strong>⚠️ Important:</strong>
                         <ul>
@@ -139,9 +136,9 @@ class RealEmailService:
                             <li>If you didn't request this, please ignore this email</li>
                         </ul>
                     </div>
-                    
+
                     <p>If you have any questions, please contact our support team.</p>
-                    
+
                     <div class="footer">
                         <p>This is an automated message. Please do not reply to this email.</p>
                         <p>&copy; 2024 User Management System. All rights reserved.</p>
@@ -154,20 +151,20 @@ class RealEmailService:
             # Create plain text content
             text_content = f"""
             Email Verification Code
-            
+
             Hello,
-            
+
             You have requested to verify your email address. Please use the following verification code:
-            
+
             {otp_code}
-            
+
             Important:
             - This code will expire in {expires_in_minutes} minutes
             - Do not share this code with anyone
             - If you didn't request this, please ignore this email
-            
+
             If you have any questions, please contact our support team.
-            
+
             This is an automated message. Please do not reply to this email.
             © 2024 User Management System. All rights reserved.
             """

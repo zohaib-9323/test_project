@@ -5,7 +5,6 @@ This module contains tests for authentication functionality including
 login, signup, and token validation.
 """
 
-import pytest
 from fastapi.testclient import TestClient
 
 from main import app

@@ -5,7 +5,6 @@ This module contains basic tests to ensure the application starts correctly
 and basic endpoints are working.
 """
 
-import pytest
 from fastapi.testclient import TestClient
 
 from main import app

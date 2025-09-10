@@ -17,11 +17,11 @@ import mimetypes
 import os
 import uuid
 from datetime import datetime, timezone
-from typing import BinaryIO, List, Optional
+from typing import List
 
 from fastapi import HTTPException, UploadFile, status
 from google.cloud import storage
-from google.cloud.exceptions import GoogleCloudError, NotFound
+from google.cloud.exceptions import GoogleCloudError
 
 from app.models.file import FileInfo, FileType
 

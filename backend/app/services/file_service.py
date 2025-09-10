@@ -9,7 +9,7 @@ This module handles file-related database operations including:
 """
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Optional
 
 from fastapi import HTTPException, status
 
@@ -17,7 +17,6 @@ from app.config.database import db_config
 from app.models.file import (
     FileAccess,
     FileListResponse,
-    FileMetadata,
     FileType,
     FileUpdateRequest,
     FileUploadResponse,

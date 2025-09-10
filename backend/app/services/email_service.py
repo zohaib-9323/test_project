@@ -12,17 +12,11 @@ The service manages the email verification process using OTP codes.
 import random
 import string
 from datetime import datetime, timedelta, timezone
-from typing import Optional
 
 from fastapi import HTTPException, status
 
 from app.config.database import db_config
-from app.models.user import (
-    EmailVerificationRequest,
-    EmailVerificationResponse,
-    EmailVerificationVerify,
-    OTPResponse,
-)
+from app.models.user import EmailVerificationResponse, OTPResponse
 from app.services.real_email_service import real_email_service
 
 
@@ -93,7 +87,7 @@ class EmailService:
 
             if result.data:
                 # Send OTP via real email service
-                email_sent = await real_email_service.send_otp_email(
+                await real_email_service.send_otp_email(
                     email, otp_code, self.otp_expiry_minutes
                 )
 
