@@ -233,6 +233,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Security Scan
     needs: [backend-test, frontend-build]
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
 
     steps:
       - name: Checkout repository
@@ -249,6 +253,7 @@ jobs:
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: always()
+        continue-on-error: true
         with:
           sarif_file: 'trivy-results.sarif'
 
