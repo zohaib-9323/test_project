@@ -11,29 +11,31 @@ This module provides REST API endpoints for file upload and management:
 All endpoints require authentication and use Google Cloud Storage for file storage.
 """
 
+import logging
+from typing import List, Optional
+
 from fastapi import (
     APIRouter,
     Depends,
-    HTTPException,
-    status,
-    UploadFile,
     File,
     Form,
+    HTTPException,
     Query,
+    UploadFile,
+    status,
 )
-from typing import List, Optional
+
 from app.middleware.auth import get_current_verified_user
-from app.models.user import UserResponse
 from app.models.file import (
-    FileUploadResponse,
+    FileDeleteResponse,
     FileInfo,
     FileListResponse,
-    FileDeleteResponse,
-    FileUpdateRequest,
     FileSearchRequest,
+    FileUpdateRequest,
+    FileUploadResponse,
 )
+from app.models.user import UserResponse
 from app.services.gcs_service import gcs_service
-import logging
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

@@ -9,12 +9,14 @@ This module handles all authentication-related API endpoints including:
 The routes are protected with proper error handling and validation.
 """
 
-from fastapi import APIRouter, Depends, HTTPException, status
 from datetime import timedelta
-from app.models.user import UserCreate, UserLogin, Token, UserResponse
+
+from fastapi import APIRouter, Depends, HTTPException, status
+
+from app.config.settings import settings
+from app.models.user import Token, UserCreate, UserLogin, UserResponse
 from app.services.user_service import user_service
 from app.utils.auth import create_access_token
-from app.config.settings import settings
 
 # Create router for authentication endpoints
 router = APIRouter(prefix="/auth", tags=["authentication"])

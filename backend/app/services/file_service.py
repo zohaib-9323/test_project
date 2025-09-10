@@ -8,17 +8,19 @@ This module handles file-related database operations including:
 - File listing and search
 """
 
-from typing import Optional, List, Dict, Any
 from datetime import datetime
+from typing import Any, Dict, List, Optional
+
 from fastapi import HTTPException, status
+
 from app.config.database import db_config
 from app.models.file import (
-    FileMetadata,
-    FileUploadResponse,
-    FileListResponse,
-    FileUpdateRequest,
     FileAccess,
+    FileListResponse,
+    FileMetadata,
     FileType,
+    FileUpdateRequest,
+    FileUploadResponse,
 )
 from app.services.storage_service import storage_service
 

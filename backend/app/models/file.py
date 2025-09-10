@@ -10,10 +10,11 @@ This module defines Pydantic models for file upload operations including:
 These models handle file operations with Google Cloud Storage integration.
 """
 
-from pydantic import BaseModel, validator
-from typing import Optional, List
 from datetime import datetime
 from enum import Enum
+from typing import List, Optional
+
+from pydantic import BaseModel, validator
 
 
 class FileType(str, Enum):

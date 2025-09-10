@@ -1,9 +1,11 @@
-from typing import Optional, List
-from fastapi import HTTPException, status
-from app.config.database import db_config
-from app.models.user import UserCreate, UserUpdate, UserResponse, UserInDB, UserRole
-from app.utils.auth import get_password_hash, verify_password
 from datetime import datetime
+from typing import List, Optional
+
+from fastapi import HTTPException, status
+
+from app.config.database import db_config
+from app.models.user import UserCreate, UserInDB, UserResponse, UserRole, UserUpdate
+from app.utils.auth import get_password_hash, verify_password
 
 
 class UserService:

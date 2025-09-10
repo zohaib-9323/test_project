@@ -10,10 +10,11 @@ The middleware validates JWT tokens and extracts user information for protected 
 """
 
 from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from app.utils.auth import verify_token
-from app.services.user_service import user_service
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+
 from app.models.user import UserInDB, UserRole
+from app.services.user_service import user_service
+from app.utils.auth import verify_token
 
 # HTTP Bearer token security scheme
 security = HTTPBearer()

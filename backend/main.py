@@ -12,8 +12,9 @@ The application serves as a RESTful API for user management with JWT authenticat
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import auth, users, email_verification, files
+
 from app.config.settings import settings
+from app.routes import auth, email_verification, files, users
 
 # Create FastAPI application instance
 app = FastAPI(

@@ -11,17 +11,18 @@ This module handles all user-related API endpoints including:
 All routes are protected with JWT authentication middleware.
 """
 
-from fastapi import APIRouter, Depends, HTTPException, status
 from typing import List
-from app.models.user import UserResponse, UserUpdate
-from app.services.user_service import user_service
+
+from fastapi import APIRouter, Depends, HTTPException, status
+
 from app.middleware.auth import (
     get_current_active_user,
-    get_current_user,
     get_current_admin_user,
+    get_current_user,
     get_current_verified_user,
 )
-from app.models.user import UserInDB
+from app.models.user import UserInDB, UserResponse, UserUpdate
+from app.services.user_service import user_service
 
 # Create router for user management endpoints
 router = APIRouter(prefix="/users", tags=["users"])

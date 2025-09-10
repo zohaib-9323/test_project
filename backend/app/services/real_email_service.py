@@ -5,12 +5,13 @@ This module provides real email sending functionality using SMTP.
 Supports Gmail, Outlook, and other SMTP providers.
 """
 
+import os
 import smtplib
 import ssl
-from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from typing import Optional
-import os
+
 from fastapi import HTTPException, status
 
 

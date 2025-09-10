@@ -9,15 +9,16 @@ This module handles file operations with Google Cloud Storage including:
 - File metadata management
 """
 
+import mimetypes
 import os
 import uuid
-import mimetypes
 from datetime import datetime, timedelta
-from typing import Optional, Tuple, BinaryIO
+from typing import BinaryIO, Optional, Tuple
+
+import magic  # For better MIME type detection
+from fastapi import HTTPException, status
 from google.cloud import storage
 from google.cloud.exceptions import NotFound
-from fastapi import HTTPException, status
-import magic  # For better MIME type detection
 
 
 class StorageService:

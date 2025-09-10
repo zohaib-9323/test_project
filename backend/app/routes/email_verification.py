@@ -10,15 +10,16 @@ The routes handle the email verification workflow using OTP codes.
 """
 
 from fastapi import APIRouter, Depends, HTTPException, status
+
+from app.middleware.auth import get_current_active_user
 from app.models.user import (
     EmailVerificationRequest,
+    EmailVerificationResponse,
     EmailVerificationVerify,
     OTPResponse,
-    EmailVerificationResponse,
+    UserInDB,
 )
 from app.services.email_service import email_service
-from app.middleware.auth import get_current_active_user
-from app.models.user import UserInDB
 
 # Create router for email verification endpoints
 router = APIRouter(prefix="/email", tags=["email verification"])

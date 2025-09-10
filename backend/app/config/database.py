@@ -10,9 +10,10 @@ The implementation uses the real Supabase client for production use.
 """
 
 import os
-from dotenv import load_dotenv
-from supabase import create_client, Client
 from typing import Optional
+
+from dotenv import load_dotenv
+from supabase import Client, create_client
 
 # Load environment variables
 load_dotenv()

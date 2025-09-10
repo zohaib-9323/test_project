@@ -13,13 +13,15 @@ import random
 import string
 from datetime import datetime, timedelta, timezone
 from typing import Optional
+
 from fastapi import HTTPException, status
+
 from app.config.database import db_config
 from app.models.user import (
     EmailVerificationRequest,
+    EmailVerificationResponse,
     EmailVerificationVerify,
     OTPResponse,
-    EmailVerificationResponse,
 )
 from app.services.real_email_service import real_email_service
 
