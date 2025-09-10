@@ -1,0 +1,92 @@
+INFO:     Will watch for changes in these directories: ['/Users/faiztoufiq/Desktop/test_project/backend']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [4769] using StatReload
+WARNING:app.services.gcs_service:GCS credentials not configured. File upload will be disabled.
+INFO:     Started server process [4848]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+✅ Connected to Supabase database: https://uaeufzdqzjxpyywzqmwe.supabase.co
+⚠️  Email credentials not configured. Using mock email service.
+INFO:     127.0.0.1:51011 - "GET /files/health/status HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'app/models/file.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [4848]
+WARNING:app.services.gcs_service:GCS credentials not configured. File upload will be disabled.
+INFO:     Started server process [36136]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'app/models/user.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [36136]
+WARNING:app.services.gcs_service:GCS credentials not configured. File upload will be disabled.
+INFO:     Started server process [83907]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'tests/test_file_upload.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [83907]
+WARNING:app.services.gcs_service:GCS credentials not configured. File upload will be disabled.
+INFO:     Started server process [8883]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'app/config/database.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [8883]
+WARNING:  StatReload detected changes in 'tests/test_auth.py'. Reloading...
+WARNING:app.services.gcs_service:GCS credentials not configured. File upload will be disabled.
+INFO:     Started server process [27425]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:app.services.gcs_service:GCS credentials not configured. File upload will be disabled.
+INFO:     Started server process [27543]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'tests/test_auth.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [27543]
+WARNING:app.services.gcs_service:GCS credentials not configured. File upload will be disabled.
+INFO:     Started server process [28243]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'tests/test_file_upload.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [28243]
+WARNING:app.services.gcs_service:GCS credentials not configured. File upload will be disabled.
+INFO:     Started server process [28585]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'tests/test_auth.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [28585]
+WARNING:app.services.gcs_service:GCS credentials not configured. File upload will be disabled.
+INFO:     Started server process [31433]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'tests/test_file_upload.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [31433]
+WARNING:app.services.gcs_service:GCS credentials not configured. File upload will be disabled.
+INFO:     Started server process [31746]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [31746]
+INFO:     Stopping reloader process [4769]
