@@ -1,0 +1,34 @@
+
+> frontend@0.1.0 dev
+> next dev --turbopack
+
+   ▲ Next.js 15.5.2 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.41:3000
+
+ ✓ Starting...
+ ✓ Ready in 1505ms
+ ○ Compiling / ...
+ ✓ Compiled / in 7.8s
+ HEAD / 200 in 8450ms
+ GET / 200 in 204ms
+ GET / 200 in 231ms
+ ✓ Compiled /favicon.ico in 444ms
+ GET /favicon.ico?favicon.0b3bf435.ico 200 in 769ms
+ ✓ Compiled in 114ms
+ ✓ Compiled / in 63ms
+ GET / 200 in 606ms
+ GET /favicon.ico?favicon.0b3bf435.ico 200 in 279ms
+ ⚠ Fast Refresh had to perform a full reload when ./src/contexts/AuthContext.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ✓ Compiled in 62ms
+ GET / 200 in 626ms
+ GET /favicon.ico?favicon.0b3bf435.ico 200 in 272ms
+ ⚠ Fast Refresh had to perform a full reload when ./src/contexts/AuthContext.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ✓ Compiled in 52ms
+ GET / 200 in 587ms
+ GET /favicon.ico?favicon.0b3bf435.ico 200 in 285ms
+ ⚠ Fast Refresh had to perform a full reload when ./src/contexts/AuthContext.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ✓ Compiled in 77ms
+ GET / 200 in 534ms
+ GET /favicon.ico?favicon.0b3bf435.ico 200 in 295ms
+[?25h
