@@ -27,21 +27,65 @@ from app.models.job import (
     JobWithCompany,
 )
 from app.models.user import UserInDB, UserRole
+
 # from app.services.job_service import job_service
+
+
+# Temporary mock job service until SQLAlchemy issue is resolved
+class MockJobService:
+    async def get_jobs(self, search_request):
+        return JobListResponse(jobs=[], total=0, page=1, per_page=20, total_pages=0)
+
+    async def create_company(self, company_data, user_id):
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Job service temporarily unavailable. Please try again later.",
+        )
+
+    async def get_companies(self, page, per_page):
+        return CompanyListResponse(
+            companies=[], total=0, page=1, per_page=20, total_pages=0
+        )
+
+    async def get_company(self, company_id):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Company not found"
+        )
+
+    async def create_job(self, job_data, user_id):
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Job service temporarily unavailable. Please try again later.",
+        )
+
+    async def get_job(self, job_id):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Job not found"
+        )
+
+    async def apply_to_job(self, application_data, user_id):
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Job service temporarily unavailable. Please try again later.",
+        )
+
+
+job_service = MockJobService()
 
 router = APIRouter(prefix="/jobs", tags=["jobs"])
 
 
 @router.post("/companies/", response_model=Company, status_code=status.HTTP_201_CREATED)
 async def create_company(
-    company_data: CompanyCreate, current_user: UserInDB = Depends(get_current_verified_user)
+    company_data: CompanyCreate,
+    current_user: UserInDB = Depends(get_current_verified_user),
 ):
     """
     Create a new company
 
     Only users with 'company' or 'admin' role can create companies.
     """
-    if current_user.role not in [UserInDBRole.COMPANY, UserInDBRole.ADMIN]:
+    if current_user.role not in [UserRole.COMPANY, UserRole.ADMIN]:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Only company users and admins can create companies",
@@ -90,7 +134,7 @@ async def create_job(
 
     Only users with 'company' or 'admin' role can create jobs.
     """
-    if current_user.role not in [UserInDBRole.COMPANY, UserInDBRole.ADMIN]:
+    if current_user.role not in [UserRole.COMPANY, UserRole.ADMIN]:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Only company users and admins can create jobs",
@@ -135,7 +179,9 @@ async def get_jobs(
 
 
 @router.get("/{job_id}", response_model=JobWithCompany)
-async def get_job(job_id: int, current_user: UserInDB = Depends(get_current_verified_user)):
+async def get_job(
+    job_id: int, current_user: UserInDB = Depends(get_current_verified_user)
+):
     """
     Get a specific job by ID with company information
 
