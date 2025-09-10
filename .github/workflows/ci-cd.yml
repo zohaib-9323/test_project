@@ -349,9 +349,19 @@ jobs:
 
       - name: Download frontend build artifacts
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: frontend-build
           path: frontend/.next/
+
+      - name: Check build artifacts
+        run: |
+          if [ -d "frontend/.next" ]; then
+            echo "✅ Frontend build artifacts found"
+            ls -la frontend/.next/
+          else
+            echo "⚠️ Frontend build artifacts not found, will build during deployment"
+          fi
 
       - name: Deploy to production
         run: |
