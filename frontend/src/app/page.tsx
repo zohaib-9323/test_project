@@ -14,7 +14,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { User, LogOut, Settings, Users, UserCheck, Crown, Shield, Mail } from 'lucide-react';
+import { User, LogOut, Settings, Users, UserCheck, Crown, Shield, Mail, Briefcase, Building2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
 
@@ -136,12 +136,19 @@ export default function Home() {
                       <span className={`ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         user.role === 'admin' 
                           ? 'bg-purple-100 text-purple-800' 
+                          : user.role === 'company'
+                          ? 'bg-blue-100 text-blue-800'
                           : 'bg-green-100 text-green-800'
                       }`}>
                         {user.role === 'admin' ? (
                           <>
                             <Crown className="h-3 w-3 mr-1" />
                             Admin
+                          </>
+                        ) : user.role === 'company' ? (
+                          <>
+                            <Building2 className="h-3 w-3 mr-1" />
+                            Company
                           </>
                         ) : (
                           <>
@@ -193,6 +200,13 @@ export default function Home() {
                       <User className="h-4 w-4 inline mr-2" />
                       Edit Profile
                     </Link>
+                    <Link
+                      href="/jobs"
+                      className="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
+                    >
+                      <Briefcase className="h-4 w-4 inline mr-2" />
+                      Browse Jobs
+                    </Link>
                     {user.role === 'admin' && (
                       <Link
                         href="/admin"
@@ -200,6 +214,15 @@ export default function Home() {
                       >
                         <Users className="h-4 w-4 inline mr-2" />
                         Admin Panel
+                      </Link>
+                    )}
+                    {(user.role === 'company' || user.role === 'admin') && (
+                      <Link
+                        href="/company"
+                        className="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
+                      >
+                        <Building2 className="h-4 w-4 inline mr-2" />
+                        Company Dashboard
                       </Link>
                     )}
                   </div>

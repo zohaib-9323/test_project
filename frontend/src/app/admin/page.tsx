@@ -39,7 +39,7 @@ const createUserSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
-  role: z.enum(['admin', 'user']),
+  role: z.enum(['admin', 'user', 'company']),
 });
 
 type CreateUserForm = z.infer<typeof createUserSchema>;
@@ -48,7 +48,7 @@ interface User {
   id: number;
   name: string;
   email: string;
-  role: 'admin' | 'user';
+  role: 'admin' | 'user' | 'company';
   is_active: boolean;
   is_email_verified: boolean;
   created_at: string;
@@ -319,6 +319,7 @@ export default function AdminPage() {
                           className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                         >
                           <option value="user">Standard User</option>
+                          <option value="company">Company User</option>
                           <option value="admin">Administrator</option>
                         </select>
                       </div>
@@ -435,9 +436,11 @@ export default function AdminPage() {
                             <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                               userItem.role === 'admin' 
                                 ? 'bg-yellow-100 text-yellow-800' 
+                                : userItem.role === 'company'
+                                ? 'bg-green-100 text-green-800'
                                 : 'bg-blue-100 text-blue-800'
                             }`}>
-                              {userItem.role === 'admin' ? 'Admin' : 'User'}
+                              {userItem.role === 'admin' ? 'Admin' : userItem.role === 'company' ? 'Company' : 'User'}
                             </span>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">

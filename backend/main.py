@@ -14,7 +14,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config.settings import settings
-from app.routes import auth, email_verification, files, users
+from app.routes import auth, email_verification, files, users, jobs
 
 # Create FastAPI application instance
 app = FastAPI(
@@ -37,6 +37,7 @@ app.include_router(auth.router)  # Authentication routes (/auth/*)
 app.include_router(users.router)  # User management routes (/users/*)
 app.include_router(email_verification.router)  # Email verification routes (/email/*)
 app.include_router(files.router)  # File upload routes (/files/*)
+app.include_router(jobs.router)  # Job system routes (/jobs/*)
 
 
 @app.get("/")

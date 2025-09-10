@@ -81,12 +81,39 @@ export const emailAPI = {
   verifyOTPAuthenticated: (otpCode: string) => api.post('/email/verify-otp-authenticated', { otp_code: otpCode }),
 };
 
+// Job System API
+export const jobAPI = {
+  // Company endpoints
+  createCompany: (data: CompanyCreate) => api.post('/jobs/companies/', data),
+  getCompanies: (page = 1, per_page = 20) => api.get(`/jobs/companies/?page=${page}&per_page=${per_page}`),
+  getCompany: (id: number) => api.get(`/jobs/companies/${id}`),
+  
+  // Job endpoints
+  createJob: (data: JobCreate) => api.post('/jobs/', data),
+  getJobs: (params: JobSearchParams = {}) => {
+    const searchParams = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        searchParams.append(key, value.toString());
+      }
+    });
+    return api.get(`/jobs/?${searchParams.toString()}`);
+  },
+  getJob: (id: number) => api.get(`/jobs/${id}`),
+  
+  // Job application endpoints
+  applyToJob: (jobId: number, data: JobApplicationCreate) => api.post(`/jobs/${jobId}/apply`, data),
+  
+  // Health check
+  healthCheck: () => api.get('/jobs/health/status'),
+};
+
 // Types
 export interface User {
   id: number;
   name: string;
   email: string;
-  role: 'admin' | 'user';
+  role: 'admin' | 'user' | 'company';
   is_active: boolean;
   is_email_verified: boolean;
   created_at: string;
@@ -97,7 +124,7 @@ export interface SignupData {
   name: string;
   email: string;
   password: string;
-  role?: 'admin' | 'user';
+  role?: 'admin' | 'user' | 'company';
 }
 
 export interface LoginData {
@@ -127,4 +154,110 @@ export interface OTPResponse {
 export interface EmailVerificationResponse {
   message: string;
   success: boolean;
+}
+
+// Job System Types
+export interface Company {
+  id: number;
+  name: string;
+  description?: string;
+  website?: string;
+  industry?: string;
+  size?: string;
+  location?: string;
+  created_by: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Job {
+  id: number;
+  title: string;
+  description: string;
+  requirements?: string;
+  location?: string;
+  salary_min?: number;
+  salary_max?: number;
+  employment_type: 'full-time' | 'part-time' | 'contract' | 'internship' | 'freelance';
+  experience_level: 'entry' | 'mid' | 'senior' | 'executive';
+  remote_work: boolean;
+  company_id: number;
+  posted_by: number;
+  is_active: boolean;
+  application_deadline?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface JobWithCompany extends Job {
+  company: Company;
+}
+
+export interface JobApplication {
+  id: number;
+  job_id: number;
+  applicant_id: number;
+  cover_letter?: string;
+  resume_url?: string;
+  status: 'pending' | 'reviewed' | 'accepted' | 'rejected';
+  applied_at: string;
+  reviewed_at?: string;
+  notes?: string;
+}
+
+export interface CompanyCreate {
+  name: string;
+  description?: string;
+  website?: string;
+  industry?: string;
+  size?: string;
+  location?: string;
+}
+
+export interface JobCreate {
+  title: string;
+  description: string;
+  requirements?: string;
+  location?: string;
+  salary_min?: number;
+  salary_max?: number;
+  employment_type: 'full-time' | 'part-time' | 'contract' | 'internship' | 'freelance';
+  experience_level: 'entry' | 'mid' | 'senior' | 'executive';
+  remote_work: boolean;
+  company_id: number;
+  application_deadline?: string;
+}
+
+export interface JobApplicationCreate {
+  job_id: number;
+  cover_letter?: string;
+  resume_url?: string;
+}
+
+export interface JobSearchParams {
+  query?: string;
+  location?: string;
+  employment_type?: string;
+  experience_level?: string;
+  remote_work?: boolean;
+  salary_min?: number;
+  company_id?: number;
+  page?: number;
+  per_page?: number;
+}
+
+export interface JobListResponse {
+  jobs: JobWithCompany[];
+  total: number;
+  page: number;
+  per_page: number;
+  total_pages: number;
+}
+
+export interface CompanyListResponse {
+  companies: Company[];
+  total: number;
+  page: number;
+  per_page: number;
+  total_pages: number;
 }

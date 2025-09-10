@@ -8,6 +8,7 @@ from pydantic import BaseModel, EmailStr, validator
 class UserRole(str, Enum):
     ADMIN = "admin"
     USER = "user"
+    COMPANY = "company"
 
 
 class UserBase(BaseModel):
