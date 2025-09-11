@@ -1,13 +1,13 @@
 /**
  * Email Verification Page
- * 
+ *
  * This page handles the email verification flow:
  * - Displays after user signup
  * - Shows OTP input form
  * - Handles verification success/failure
  * - Redirects to dashboard after successful verification
  * - Provides resend functionality
- * 
+ *
  * This is a mandatory step in the authentication flow.
  */
 
@@ -18,13 +18,13 @@ import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { 
-  Mail, 
-  ArrowLeft, 
-  AlertCircle, 
-  CheckCircle, 
+import {
+  Mail,
+  ArrowLeft,
+  AlertCircle,
+  CheckCircle,
   Loader2,
-  Shield
+  Shield,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -33,7 +33,8 @@ import toast from 'react-hot-toast';
 
 // Validation schema for OTP input
 const otpSchema = z.object({
-  otpCode: z.string()
+  otpCode: z
+    .string()
     .min(6, 'OTP must be 6 digits')
     .max(6, 'OTP must be 6 digits')
     .regex(/^\d{6}$/, 'OTP must contain only numbers'),
@@ -65,7 +66,7 @@ function VerifyEmailContent() {
     let interval: NodeJS.Timeout;
     if (countdown > 0) {
       interval = setInterval(() => {
-        setCountdown((prev) => prev - 1);
+        setCountdown(prev => prev - 1);
       }, 1000);
     }
     return () => clearInterval(interval);
@@ -94,17 +95,19 @@ function VerifyEmailContent() {
 
     setIsLoading(true);
     setVerificationAttempted(true);
-    
+
     try {
       const response = await emailAPI.sendOTP(email);
       const data: OTPResponse = response.data;
-      
+
       if (data.success) {
         setCountdown(data.expires_in_minutes * 60);
-        
+
         // Show OTP in toast for testing purposes
         if (data.otp_code) {
-          toast.success(`OTP sent! Code: ${data.otp_code}`, { duration: 10000 });
+          toast.success(`OTP sent! Code: ${data.otp_code}`, {
+            duration: 10000,
+          });
         } else {
           toast.success(data.message);
         }
@@ -112,7 +115,9 @@ function VerifyEmailContent() {
         toast.error('Failed to send verification code');
       }
     } catch (error: unknown) {
-      const errorMessage = (error as { response?: { data?: { detail?: string } } })?.response?.data?.detail || 'Failed to send verification code';
+      const errorMessage =
+        (error as { response?: { data?: { detail?: string } } })?.response?.data
+          ?.detail || 'Failed to send verification code';
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);
@@ -134,17 +139,17 @@ function VerifyEmailContent() {
     }
 
     setIsLoading(true);
-    
+
     try {
       const response = await emailAPI.verifyOTP(email, data.otpCode);
       const result: EmailVerificationResponse = response.data;
-      
+
       if (result.success) {
         toast.success(result.message);
-        
+
         // Refresh user data to get updated verification status
         await refreshUser();
-        
+
         // Redirect to dashboard after a short delay
         setTimeout(() => {
           router.push('/');
@@ -153,7 +158,9 @@ function VerifyEmailContent() {
         toast.error('Verification code is invalid or expired');
       }
     } catch (error: unknown) {
-      const errorMessage = (error as { response?: { data?: { detail?: string } } })?.response?.data?.detail || 'Verification failed';
+      const errorMessage =
+        (error as { response?: { data?: { detail?: string } } })?.response?.data
+          ?.detail || 'Verification failed';
       toast.error(errorMessage);
     } finally {
       setIsLoading(false);
@@ -182,9 +189,13 @@ function VerifyEmailContent() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">Email Not Found</h2>
-          <p className="text-gray-600 mb-4">Please sign up first to verify your email.</p>
-          <Link 
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">
+            Email Not Found
+          </h2>
+          <p className="text-gray-600 mb-4">
+            Please sign up first to verify your email.
+          </p>
+          <Link
             href="/"
             className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >
@@ -208,16 +219,17 @@ function VerifyEmailContent() {
         <p className="mt-2 text-center text-sm text-gray-600">
           We&apos;ve sent a verification code to
         </p>
-        <p className="text-center text-sm font-medium text-blue-600">
-          {email}
-        </p>
+        <p className="text-center text-sm font-medium text-blue-600">{email}</p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form onSubmit={handleSubmit(verifyOTP)} className="space-y-6">
             <div>
-              <label htmlFor="otpCode" className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="otpCode"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Enter 6-digit verification code
               </label>
               <div className="mt-1 relative">
@@ -233,14 +245,19 @@ function VerifyEmailContent() {
                 />
               </div>
               {errors.otpCode && (
-                <p className="mt-1 text-sm text-red-600">{errors.otpCode.message}</p>
+                <p className="mt-1 text-sm text-red-600">
+                  {errors.otpCode.message}
+                </p>
               )}
             </div>
 
             <div className="text-center">
               {countdown > 0 ? (
                 <p className="text-sm text-gray-600">
-                  Code expires in <span className="font-medium text-orange-600">{formatCountdown(countdown)}</span>
+                  Code expires in{' '}
+                  <span className="font-medium text-orange-600">
+                    {formatCountdown(countdown)}
+                  </span>
                 </p>
               ) : (
                 <p className="text-sm text-red-600">Code expired</p>
@@ -304,7 +321,9 @@ function VerifyEmailContent() {
         <div className="fixed inset-0 bg-green-50 bg-opacity-95 flex items-center justify-center z-50">
           <div className="text-center">
             <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-green-900 mb-2">Email Verified!</h3>
+            <h3 className="text-lg font-medium text-green-900 mb-2">
+              Email Verified!
+            </h3>
             <p className="text-green-700">Redirecting to dashboard...</p>
           </div>
         </div>
@@ -315,14 +334,16 @@ function VerifyEmailContent() {
 
 export default function VerifyEmailPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="flex items-center space-x-2">
-          <Loader2 className="h-6 w-6 animate-spin text-blue-600" />
-          <span className="text-gray-600">Loading...</span>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="flex items-center space-x-2">
+            <Loader2 className="h-6 w-6 animate-spin text-blue-600" />
+            <span className="text-gray-600">Loading...</span>
+          </div>
         </div>
-      </div>
-    }>
+      }
+    >
       <VerifyEmailContent />
     </Suspense>
   );

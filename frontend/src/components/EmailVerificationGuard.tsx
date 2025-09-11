@@ -1,13 +1,13 @@
 /**
  * Email Verification Guard Component
- * 
+ *
  * This component protects routes that require verified email:
  * - Checks if user is authenticated
  * - Checks if user's email is verified
  * - Redirects to email verification page if not verified
  * - Shows loading state while checking
  * - Renders children only if email is verified
- * 
+ *
  * Used to wrap pages that require email verification.
  */
 
@@ -16,12 +16,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { 
-  Loader2, 
-  AlertCircle, 
-  Shield,
-  ArrowLeft 
-} from 'lucide-react';
+import { Loader2, AlertCircle, Shield, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 interface EmailVerificationGuardProps {
@@ -29,9 +24,9 @@ interface EmailVerificationGuardProps {
   fallback?: React.ReactNode;
 }
 
-export default function EmailVerificationGuard({ 
-  children, 
-  fallback 
+export default function EmailVerificationGuard({
+  children,
+  fallback,
 }: EmailVerificationGuardProps) {
   const { user, loading } = useAuth();
   const router = useRouter();
@@ -40,13 +35,13 @@ export default function EmailVerificationGuard({
   useEffect(() => {
     if (!loading) {
       setIsChecking(false);
-      
+
       // If user is not authenticated, redirect to login
       if (!user) {
         router.push('/');
         return;
       }
-      
+
       // If user is authenticated but email is not verified, redirect to verification
       if (user && !user.is_email_verified) {
         router.push(`/verify-email?email=${encodeURIComponent(user.email)}`);
@@ -73,9 +68,13 @@ export default function EmailVerificationGuard({
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">Access Denied</h2>
-          <p className="text-gray-600 mb-4">You need to be logged in to access this page.</p>
-          <Link 
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">
+            Access Denied
+          </h2>
+          <p className="text-gray-600 mb-4">
+            You need to be logged in to access this page.
+          </p>
+          <Link
             href="/"
             className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >
@@ -93,14 +92,17 @@ export default function EmailVerificationGuard({
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Shield className="h-12 w-12 text-yellow-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">Email Verification Required</h2>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">
+            Email Verification Required
+          </h2>
           <p className="text-gray-600 mb-4">
             Please verify your email address to access this page.
           </p>
           <p className="text-sm text-gray-500 mb-6">
-            Verification code sent to: <span className="font-medium">{user.email}</span>
+            Verification code sent to:{' '}
+            <span className="font-medium">{user.email}</span>
           </p>
-          <Link 
+          <Link
             href={`/verify-email?email=${encodeURIComponent(user.email)}`}
             className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >

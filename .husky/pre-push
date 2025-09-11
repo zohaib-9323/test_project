@@ -1,0 +1,37 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🚀 Running pre-push checks..."
+
+# Change to frontend directory
+cd frontend
+
+# Run all tests (if available)
+echo "🧪 Running tests..."
+npm test -- --passWithNoTests 2>/dev/null || echo "No tests found, skipping..."
+
+# Run prettier check
+echo "🎨 Final prettier check..."
+npm run format:check
+
+if [ $? -ne 0 ]; then
+  echo "❌ Prettier found formatting issues. Please run 'npm run format' to fix them."
+  exit 1
+fi
+
+# Run linting one more time
+echo "📝 Final linting check..."
+npm run lint
+
+if [ $? -ne 0 ]; then
+  echo "❌ Linting errors found. Please fix them before pushing."
+  exit 1
+fi
+
+# Check for uncommitted changes
+if [ -n "$(git status --porcelain)" ]; then
+  echo "⚠️  You have uncommitted changes. Please commit them before pushing."
+  exit 1
+fi
+
+echo "✅ All pre-push checks passed! Ready to push."

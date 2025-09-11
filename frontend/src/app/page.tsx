@@ -1,12 +1,12 @@
 /**
  * Main Dashboard Page Component
- * 
+ *
  * This is the main dashboard page that:
  * - Shows user profile summary
  * - Provides quick actions and navigation
  * - Redirects unauthenticated users to login
  * - Handles email verification redirects
- * 
+ *
  * Authentication forms are now handled by separate /login and /signup pages.
  */
 
@@ -14,7 +14,18 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { User, LogOut, Settings, Users, UserCheck, Crown, Shield, Mail, Briefcase, Building2 } from 'lucide-react';
+import {
+  User,
+  LogOut,
+  Settings,
+  Users,
+  UserCheck,
+  Crown,
+  Shield,
+  Mail,
+  Briefcase,
+  Building2,
+} from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
 
@@ -76,8 +87,12 @@ export default function Home() {
                 </div>
               </div>
               <div className="ml-4">
-                <h1 className="text-2xl font-bold text-gray-900">User Management System</h1>
-                <p className="text-sm text-gray-500">Welcome back, {user.name}!</p>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  User Management System
+                </h1>
+                <p className="text-sm text-gray-500">
+                  Welcome back, {user.name}!
+                </p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -109,7 +124,9 @@ export default function Home() {
           {/* Welcome Section */}
           <div className="bg-white overflow-hidden shadow rounded-lg mb-6">
             <div className="px-4 py-5 sm:p-6">
-              <h2 className="text-lg font-medium text-gray-900 mb-4">Welcome to your Dashboard</h2>
+              <h2 className="text-lg font-medium text-gray-900 mb-4">
+                Welcome to your Dashboard
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Profile Summary */}
                 <div className="bg-gray-50 rounded-lg p-4">
@@ -118,28 +135,38 @@ export default function Home() {
                       <User className="h-8 w-8 text-gray-400" />
                     </div>
                     <div className="ml-3">
-                      <h3 className="text-sm font-medium text-gray-900">Profile</h3>
-                      <p className="text-sm text-gray-500">Manage your account</p>
+                      <h3 className="text-sm font-medium text-gray-900">
+                        Profile
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        Manage your account
+                      </p>
                     </div>
                   </div>
                   <div className="mt-4 space-y-2">
                     <div className="flex items-center text-sm">
                       <span className="text-gray-500">Name:</span>
-                      <span className="ml-2 font-medium text-gray-900">{user.name}</span>
+                      <span className="ml-2 font-medium text-gray-900">
+                        {user.name}
+                      </span>
                     </div>
                     <div className="flex items-center text-sm">
                       <span className="text-gray-500">Email:</span>
-                      <span className="ml-2 font-medium text-gray-900">{user.email}</span>
+                      <span className="ml-2 font-medium text-gray-900">
+                        {user.email}
+                      </span>
                     </div>
                     <div className="flex items-center text-sm">
                       <span className="text-gray-500">Role:</span>
-                      <span className={`ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        user.role === 'admin' 
-                          ? 'bg-purple-100 text-purple-800' 
-                          : user.role === 'company'
-                          ? 'bg-blue-100 text-blue-800'
-                          : 'bg-green-100 text-green-800'
-                      }`}>
+                      <span
+                        className={`ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          user.role === 'admin'
+                            ? 'bg-purple-100 text-purple-800'
+                            : user.role === 'company'
+                              ? 'bg-blue-100 text-blue-800'
+                              : 'bg-green-100 text-green-800'
+                        }`}
+                      >
                         {user.role === 'admin' ? (
                           <>
                             <Crown className="h-3 w-3 mr-1" />
@@ -160,11 +187,13 @@ export default function Home() {
                     </div>
                     <div className="flex items-center text-sm">
                       <span className="text-gray-500">Email Verified:</span>
-                      <span className={`ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        user.is_email_verified 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-yellow-100 text-yellow-800'
-                      }`}>
+                      <span
+                        className={`ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          user.is_email_verified
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-yellow-100 text-yellow-800'
+                        }`}
+                      >
                         {user.is_email_verified ? (
                           <>
                             <UserCheck className="h-3 w-3 mr-1" />
@@ -188,7 +217,9 @@ export default function Home() {
                       <Settings className="h-8 w-8 text-gray-400" />
                     </div>
                     <div className="ml-3">
-                      <h3 className="text-sm font-medium text-gray-900">Quick Actions</h3>
+                      <h3 className="text-sm font-medium text-gray-900">
+                        Quick Actions
+                      </h3>
                       <p className="text-sm text-gray-500">Common tasks</p>
                     </div>
                   </div>
@@ -235,7 +266,9 @@ export default function Home() {
                       <Shield className="h-8 w-8 text-gray-400" />
                     </div>
                     <div className="ml-3">
-                      <h3 className="text-sm font-medium text-gray-900">System Status</h3>
+                      <h3 className="text-sm font-medium text-gray-900">
+                        System Status
+                      </h3>
                       <p className="text-sm text-gray-500">Account security</p>
                     </div>
                   </div>
@@ -261,11 +294,11 @@ export default function Home() {
           {/* Recent Activity or Additional Content */}
           <div className="bg-white overflow-hidden shadow rounded-lg">
             <div className="px-4 py-5 sm:p-6">
-              <h2 className="text-lg font-medium text-gray-900 mb-4">Getting Started</h2>
+              <h2 className="text-lg font-medium text-gray-900 mb-4">
+                Getting Started
+              </h2>
               <div className="prose prose-sm text-gray-500">
-                <p>
-                  Welcome to the User Management System! You can now:
-                </p>
+                <p>Welcome to the User Management System! You can now:</p>
                 <ul className="list-disc list-inside space-y-1">
                   <li>Update your profile information</li>
                   <li>Manage your account settings</li>
@@ -275,7 +308,8 @@ export default function Home() {
                   <li>View your account status and security information</li>
                 </ul>
                 <p className="mt-4">
-                  Use the navigation above to explore different sections of the application.
+                  Use the navigation above to explore different sections of the
+                  application.
                 </p>
               </div>
             </div>
